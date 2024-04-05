@@ -14,6 +14,10 @@
     - Execute a query
     - Display the result of a query
 
+    Change Log:
+    - 2024/04/04 - Raphael Frei - Initial version
+    - 2024/04/05 - Raphael Frei - Delete Book/Get Single Book function added
+
 ************************************************************************** */
 
 #include <stdio.h>
@@ -26,8 +30,10 @@ int CountPrint = 0;
 
 sqlite3* DB;
 
-// Trying to connect to database
-int connect(){
+/* ----- Attempt to connect the database ----- */
+/* - Raphael Frei - 2024/04/04 - */
+/* This is currently not in use, only create for initial database setup */
+int Connect(){
 
     int exit = 0;
     exit = sqlite3_open(DBName, &DB);
@@ -45,8 +51,11 @@ int connect(){
 
 /* ----- BOOKS Table ----- */
 
-// Print books database into pair of records
-static int PrintBooksQuery(void* data, int argc, char** argv, char** azColName) {
+/* ----- PRINT BOOK(S) QUERY ----- */
+/* - Raphael Frei - 2024/04/04 - */
+/* Print books database into pair of records - After 2 attemps, ask user if wants to continue */
+/* This query can be used for one or more items */
+static int PrintBooksQuery(void* data, int argc, char** argv, char** columnName) {
     CountPrint++;
 
     if (CountPrint % RegisterMaxShow == 1)
@@ -73,6 +82,8 @@ static int PrintBooksQuery(void* data, int argc, char** argv, char** azColName) 
     return 0;
 }
 
+/* ----- ADD BOOK TO TABLE ----- */
+/* - Raphael Frei - 2024/04/04 - */
 int AddBookToTable(char* ISBN, char* Title, char* Author, char* Publisher){
 
     int exit = 0;
@@ -80,7 +91,6 @@ int AddBookToTable(char* ISBN, char* Title, char* Author, char* Publisher){
 
     char query[1000];
     
-    // Corrigindo a construção da consulta SQL
     snprintf(query, sizeof(query), "INSERT INTO books (book_isbn, book_title, book_author, book_publisher) VALUES ('%s', '%s', '%s', '%s')", ISBN, Title, Author, Publisher);
 
     int result = sqlite3_exec(DB, query, NULL, 0, NULL);
@@ -97,6 +107,9 @@ int AddBookToTable(char* ISBN, char* Title, char* Author, char* Publisher){
     return 0;
 }
 
+/* ----- GET SINGLE BOOK ----- */
+/* - Raphael Frei - 2024/04/05 - */
+/* If ID won't match, return -1 and the warning message */
 int GetSingleBook(int id){
     int exit = 0;
     CountPrint = 0;
@@ -108,7 +121,7 @@ int GetSingleBook(int id){
     int result = sqlite3_exec(DB, query, PrintBooksQuery, 0, NULL);
 
     if (result != SQLITE_OK) {
-        printf("There is no book with this ID\n");
+        printf("There is no book with this ID.\n");
         return -1;
     }
 
@@ -117,6 +130,8 @@ int GetSingleBook(int id){
     return 0;
 }
 
+/* ----- DELETE BOOK FROM TABLE ----- */
+/* - Raphael Frei - 2024/04/05 - */
 int DeleteBookFromTable(int id){
     
     int exit = 0;
@@ -139,6 +154,8 @@ int DeleteBookFromTable(int id){
     
 }
 
+/* ----- GET LIST OF BOOKS ----- */
+/* - Raphael Frei - 2024/04/04 - */
 int GetListOfBooks(){
     CountPrint = 0;
     int exit = 0;

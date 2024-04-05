@@ -23,6 +23,10 @@
 
     - Exit the program
 
+    Change Log:
+    - 2024/04/04 - Raphael Frei - Initial version
+    - 2024/04/05 - Raphael Frei - Added user management functions
+
 ************************************************************************** */
 
 #include <unistd.h>
@@ -33,10 +37,11 @@
 #include "util.c"
 #include "SQLConn.c"
 #include "book_management.c"
+#include "user_management.c"
 
 int main(void){
 
-    system("clear");
+    ClearScreen();
 
     PrintTitle();
     printf(" Select an option:\n");
@@ -54,11 +59,12 @@ int main(void){
 
     switch(option){
         case 1:
-            BookManMain();
             // Book Management
+            BookManMain();
             break;
         case 2:
             // User Management
+            UserMainMan();
             break;
         case 3:
             // Borrow/Return a Book
@@ -72,7 +78,6 @@ int main(void){
             break;
     }
 
-    sleep(2);
     main();
 
     return 0;
