@@ -1,0 +1,9 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/raphaelfrei/Projects/C/LibraryControl/main'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _book_man_main, symObjAddr: 0x0, symBinAddr: 0x100003BA4, symSize: 0x11C }
+  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _book_man_main, symObjAddr: 0x0, symBinAddr: 0x100003BA4, symSize: 0x11C }
+  - { offsetInCU: 0x69, offset: 0x69, size: 0x8, addend: 0x0, symName: _add_book, symObjAddr: 0x130, symBinAddr: 0x100003CD4, symSize: 0x8 }
+  - { offsetInCU: 0x82, offset: 0x82, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x138, symBinAddr: 0x100003CDC, symSize: 0x124 }
+...
