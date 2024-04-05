@@ -18,5 +18,10 @@ gcc PathToMainCFile -o OutputEXEFile -lsqlite3
 
 Example:
 ````
-gcc /path.../...to/...script/main.c -o /path.../...to/...script/main -lsqlite3
+gcc /PathToFile/.../main.c -o /PathToFile/.../main -lsqlite3
+````
+
+Change database file path at ````SQLConn.c````:
+````c
+char* DBName = "/PathToFile/.../database.db";
 ````
